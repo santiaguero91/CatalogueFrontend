@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchData } from './redux/actions';
 import Cards from './components/Cards';
-// axios.defaults.baseURL = "http://localhost:3001"
-axios.defaults.baseURL = "https://cataloguebackend-santiaguero91.vercel.app"
+//   axios.defaults.baseURL = "http://localhost:3001"
+axios.defaults.baseURL = "https://cataloguebackend-3om3035ke-santiaguero91.vercel.app"
 
 
 function App() {

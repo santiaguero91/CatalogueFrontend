@@ -109,7 +109,6 @@ const reducer = (state = initialState, action) => {
       const currentAvailableOutIndoor = [];
 
       const currentAvailableClasification = [];
-
       state.initialSensors.map((el) => {
         if (el["brand"]) {
           currentAvailableBrands.push(el["brand"]);
