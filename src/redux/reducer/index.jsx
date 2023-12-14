@@ -34,6 +34,8 @@ const initialState = {
   dropdownData: {},
   measuresArrList: [],
   seePricesChecked: true,
+
+  cart: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -88,7 +90,24 @@ const reducer = (state = initialState, action) => {
         sortedby: state.sortedby,
         filteredSensors: combinedSensors,
       };
-    case "SEARCH_DATA":
+    case "ADDCART":
+      const isItemInCart = state.cart.some(
+        (cartItem) => cartItem.id === action.payload.item.id
+      );
+      if (isItemInCart) {
+        const updatedCart = state.cart.filter(
+          (cartItem) => cartItem.id !== action.payload.item.id
+        );
+        return {
+          ...state,
+          cart: updatedCart,
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, action.payload.item],
+        };
+      }
     case "SEARCH_MEASURES":
     case "RESET_DATA":
       return {

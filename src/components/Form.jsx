@@ -161,9 +161,7 @@ const Form = () => {
     powerSupplyArrList,
     operatingTempArrList,
     operatingHumidityArrList,
-
     outIndoorArrList,
-
     measuresChecked,
     maxTempInput,
     minTempInput,

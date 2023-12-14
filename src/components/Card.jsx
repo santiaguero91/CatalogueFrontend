@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../redux/actions/addCart";
 
 const Card = ({ item, index }) => {
+  const dispatch = useDispatch();
   const seePrices = useSelector((s) => s.seePricesChecked);
-
+  const cart = useSelector(s=>s.cart)
 
   //storing properties into variables
   const { id, brand, sku } = item;
@@ -28,6 +30,8 @@ const Card = ({ item, index }) => {
   const operatingTemperature = item?.operatingTemperature;
   const operatingHumidity = item?.operatingHumidity;
 
+  //**selected**
+  const selected = item?.selected;
   //** truncate with .. */
 
   const [truncate, setTruncate] = useState(true);
@@ -45,7 +49,7 @@ const Card = ({ item, index }) => {
       product
     );
 
-    const truncateDescription =
+  const truncateDescription =
     description && description.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
         {description.slice(0, 20)}
@@ -54,7 +58,7 @@ const Card = ({ item, index }) => {
     ) : (
       description
     );
-    
+
   const truncateSku =
     sku && sku.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
@@ -66,7 +70,7 @@ const Card = ({ item, index }) => {
     );
 
   const truncateUseCase =
-  useCase && useCase.length > 20 && truncate ? (
+    useCase && useCase.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
         {useCase.slice(0, 20)}
         <span>...</span>
@@ -75,9 +79,8 @@ const Card = ({ item, index }) => {
       useCase
     );
 
-
   const truncateType =
-  outdoorIndoor && outdoorIndoor.length > 20 && truncate ? (
+    outdoorIndoor && outdoorIndoor.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
         {outdoorIndoor.slice(0, 17)}
         <span>...</span>
@@ -86,7 +89,7 @@ const Card = ({ item, index }) => {
       outdoorIndoor
     );
 
-    const truncateRange =
+  const truncateRange =
     measuringRange && measuringRange.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
         {measuringRange.slice(0, 20)}
@@ -94,16 +97,16 @@ const Card = ({ item, index }) => {
       </div>
     ) : (
       <div>
-        { measuringRange && measuringRange.split('\n').map((word, index, arr) => (
-          <div key={index}>
-            {word}
-            {index < arr.length - 1 && <br />}
-          </div>
-        ))}
+        {measuringRange &&
+          measuringRange.split("\n").map((word, index, arr) => (
+            <div key={index}>
+              {word}
+              {index < arr.length - 1 && <br />}
+            </div>
+          ))}
       </div>
     );
 
-    
   const truncateAccuracy =
     accuracy && accuracy.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
@@ -143,16 +146,32 @@ const Card = ({ item, index }) => {
       output
     );
 
+  const ver = () => {
+    console.log(item);
+  };
+
+  const toggleSelected = () => {
+    dispatch(addItemToCart({ item }));
+  };
+
+  const isItemInCart = cart.some(cartItem => cartItem.id === item.id);
 
   return (
     <>
-      <tr key={id}>
-        <td>{index + 1}</td>
-        <td>{brand}</td>
+      <button onClick={() => ver()}>VER</button>
+      <tr key={id} className={isItemInCart ? 'bg-yellow-100' : ''}>
+        {/* cart-add */}
+        <td>
+          {" "}
+          <button onClick={toggleSelected}>{index + 1} </button>
+        </td>
+        {/* cart-add */}
 
+        <td>{brand}</td>
         <td className="col-description cursor-pointer">{Clasification}</td>
-        <td className="col-description cursor-pointer">{truncateDescription}</td>
-        
+        <td className="col-description cursor-pointer">
+          {truncateDescription}
+        </td>
         <td className="col-model cursor-pointer">{truncatedProduct}</td>
         <td className="col-model cursor-pointer">{truncateSku}</td>
         <td className="col-model cursor-pointer">{truncateUseCase}</td>
@@ -160,11 +179,9 @@ const Card = ({ item, index }) => {
         <td className="col-model cursor-pointer">{truncateRange}</td>
         <td className="col-model cursor-pointer">{truncateAccuracy}</td>
         <td className="col-model cursor-pointer">{truncateResolution}</td>
-{/*     <td className="col-model cursor-pointer">{truncateOutput}</td>  */}
         <td className="col-model cursor-pointer">{truncatePowerSupply}</td>
         <td className="col-model">{operatingTemperature}</td>
         <td className="col-model">{operatingHumidity}</td>
-
 
         {seePrices && (
           <>
