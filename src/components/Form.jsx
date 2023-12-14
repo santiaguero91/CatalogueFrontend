@@ -6,6 +6,7 @@ import { filterData } from "../redux/actions/filter";
 import SelectComponent from "./SelectComponent";
 import handleChange from "./handleFunctions";
 import FiltersValues from "./FiltersValues";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -246,7 +247,10 @@ const Form = () => {
       setMaxTempAccuracyInput(value);
     }
   };
-
+  const navigate = useNavigate();
+  const navigateToCart = () => {
+    navigate("/cart");
+  };
   return (
     <>
       <div>
@@ -266,58 +270,15 @@ const Form = () => {
           >
             Search
           </button>
+          <button
+        className="ml-2 p-2 px-4 rounded-md bg-[#073763] shadow-slate-600 text-slate-100 font-inter shadow-2xl box-border cursor-pointer"
+        onClick={navigateToCart}
+      >
+        Go to Cart
+      </button>
         </div>
 
         <div className="w-full flex flex-col flex-wrap md:flex-nowrap gap-2">
-          {/* <div className="flex gap-2">
-            {searchedInput
-              ? brandsOptions?.map((item) => {
-                  const isBrandOptionSelected = searchedSensors.some(
-                    (sensor) => sensor.brand === item
-                  );
-                  if (isBrandOptionSelected) {
-                    return (
-                      <div key={item} className="flex gap-2">
-                        <input
-                          type="checkbox"
-                          onChange={(e) => handleChangeSelectBrandCB(e, item)}
-                          checked={brandsArrList.includes(item)}
-                        />
-                        <label>{item}</label>
-                      </div>
-                    );
-                  }
-                  return null;
-                })
-              : brandsOptions?.map((item) => {
-                  return (
-                    <div key={item} className="flex gap-2">
-                      <input
-                        type="checkbox"
-                        onChange={(e) => handleChangeSelectBrandCB(e, item)}
-                        checked={brandsArrList.includes(item)}
-                      />
-                      <label>{item}</label>
-                    </div>
-                  );
-                })}
-          </div> */}
-
-          {/* <h1>Measures </h1>
-          <div className="flex gap-2">
-            {measuresArrList?.map((item) => {
-              return (
-                <div key={item} className="flex gap-2">
-                  <input
-                    type="checkbox"
-                    onChange={(e) => handleFilterMeasures(item)}
-                    checked={measuresChecked.includes(item)}
-                  />
-                  <label>{item}</label>
-                </div>
-              );
-            })}
-          </div> */}
 
           <div className="flex flex-wrap gap-2 py-2 pb-4">
             <FiltersValues

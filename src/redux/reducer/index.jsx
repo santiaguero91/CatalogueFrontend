@@ -108,7 +108,9 @@ const reducer = (state = initialState, action) => {
           cart: [...state.cart, action.payload.item],
         };
       }
-    case "SEARCH_MEASURES":
+    case "MODIFYITEM":
+      console.log(action.payload);
+      break;
     case "RESET_DATA":
       return {
         ...state,

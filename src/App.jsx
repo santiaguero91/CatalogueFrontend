@@ -29,13 +29,13 @@ function App() {
   return (
     <div className="mainContainer">
       <button onClick={() => ver()}>VER</button>
-
+      
       <Routes>
         <Route
           path="/"
           element={<Cards sensorData={sensorData} isLoaded={isLoaded} />}
         />
-         <Route path="/cart" element={<Cart />} /> 
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );

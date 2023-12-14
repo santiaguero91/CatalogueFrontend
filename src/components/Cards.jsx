@@ -10,6 +10,8 @@ const Cards = ({ sensorData, isLoaded }) => {
 
   const [sortBy, setSortBy] = useState("");
 
+
+  
   const handleSort = (sortBy) => {
     dispatch(sortSensorData(sortBy));
     setSortBy(sortBy);
