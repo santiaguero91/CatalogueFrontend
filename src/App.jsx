@@ -7,15 +7,13 @@ import Cards from "./components/Cards";
 import { Route, Routes } from "react-router-dom";
 import Cart from "./Views/Cart";
 
-axios.defaults.baseURL = "http://localhost:3001";
-//   axios.defaults.baseURL = "https://cataloguebackend-3om3035ke-santiaguero91.vercel.app"
+//  axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://cataloguebackend-jxflcru1n-santiaguero91.vercel.app"
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const sensorData = useSelector((s) => s.filteredSensors);
-  const searchedData = useSelector((s) => s.searchedSensors);
-  const cart = useSelector((s) => s.cart);
 
   useEffect(() => {
     dispatch(fetchData()).then(() => {

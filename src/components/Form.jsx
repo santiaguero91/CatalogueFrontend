@@ -97,7 +97,6 @@ const Form = () => {
   };
 
   //handle Measure
-
   const handleDeleteMeasure = (arr, setArr, item) => {
     const filteredArr = arr.filter((itemArr) => item !== itemArr);
     setArr(filteredArr);
@@ -130,7 +129,6 @@ const Form = () => {
     setMinMeasureTempInput(0);
     setMaxMeasureTempInput(0);
     setMaxTempAccuracyInput(0);
-
     setClasificationArrList([]);
   };
 

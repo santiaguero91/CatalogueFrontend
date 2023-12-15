@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifieItemInCart } from "../redux/actions/modifyItem";
+import deleteitem from "../../src/cross-svg.svg"
+import { addItemToCart } from "../redux/actions/addCart";
 
 const CardForCart = ({ item, index, activeCheckbox }) => {
   const dispatch = useDispatch();
@@ -62,10 +64,6 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
     const value = Math.min(Math.max(parseInt(event.target.value) || 1, 1), 500);
     setInputQuantity(value);
   };
-  const toggleSelected = () => {
-    dispatch(modifieItemInCart({ ...item, totalPrice: finalItemsPrice }));
-  };
-
 
   /* calculateTotal */
   const [finalItemsPrice, setFinalItemsPrice] = useState(null);
@@ -109,13 +107,21 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
     <button onClick={()=>ver()}>VER</button>
    }
 
-
+   const toggleSelected = () => {
+    dispatch(addItemToCart({ item }));
+  };
   return (
     <>
       <tr key={id}>
-        <td>
-          {" "}
-          <button onClick={toggleSelected}>{index + 1} </button>
+      <td>
+          <img
+            src={deleteitem} 
+            alt="Add to Cart"
+            onClick={toggleSelected}
+            style={{ cursor: "pointer" }}
+            className="w-3 h-3"
+
+          />
         </td>
         <td>{brand}</td>
         <td className="col-description cursor-pointer">{Clasification}</td>

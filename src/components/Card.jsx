@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/actions/addCart";
+import shoppingCart from "../../src/shopping-cart-svg.svg"
+import deleteitem from "../../src/cross-svg.svg"
 
 const Card = ({ item, index }) => {
   const dispatch = useDispatch();
@@ -146,10 +148,6 @@ const Card = ({ item, index }) => {
       output
     );
 
-  const ver = () => {
-    console.log(item);
-  };
-
   const toggleSelected = () => {
     dispatch(addItemToCart({ item }));
   };
@@ -158,13 +156,16 @@ const Card = ({ item, index }) => {
 
   return (
     <>
-      <button onClick={() => ver()}>VER</button>
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
-        {/* cart-add */}
-        <td>
-          {" "}
-          <button onClick={toggleSelected}>{index + 1} </button>
-        </td>
+      <td>
+        <img
+          src={isItemInCart ? deleteitem : shoppingCart}
+          alt="Toggle Selected"
+          onClick={toggleSelected}
+          style={{ cursor: "pointer" }}
+          className={isItemInCart ? "w-3 h-3" : "w-6 h-6"}
+        />
+      </td>
         {/* cart-add */}
 
         <td>{brand}</td>
