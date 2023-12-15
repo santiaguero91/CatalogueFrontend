@@ -15,7 +15,6 @@ const initialState = {
   sensorTypeFilter: "",
   useCaseFilter: "",
   clasficationFilter: "",
-
   outputFilter: "",
   supplyFilter: "",
   operatingTemperatureFilter: "",
@@ -108,9 +107,17 @@ const reducer = (state = initialState, action) => {
           cart: [...state.cart, action.payload.item],
         };
       }
-    case "MODIFYITEM":
-      console.log(action.payload);
-      break;
+      case "MODIFYITEM":
+        const updatedCart = state.cart.map((cartItem) => {
+          if (cartItem.id === action.payload.item.id) {
+            return action.payload.item;
+          }
+          return cartItem;
+        });
+        return {
+          ...state,
+          cart: updatedCart,
+        };
     case "RESET_DATA":
       return {
         ...state,
@@ -128,7 +135,6 @@ const reducer = (state = initialState, action) => {
       const currentAvailableOperatingTemp = [];
       const currentAvailableOperatingHumidity = [];
       const currentAvailableOutIndoor = [];
-
       const currentAvailableClasification = [];
       state.initialSensors.map((el) => {
         if (el["brand"]) {
