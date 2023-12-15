@@ -261,15 +261,19 @@ const Form = () => {
   const uniqueOutdoorIndoor = [
     ...new Set(sensorsData.map((sensor) => sensor.outdoorIndoor?.toLowerCase()))
   ];
-  const filteredOutdoorIndoor = outdoorIndoorInputOptions.filter(
-    (option) =>
-      !outputArrList.map((item) => item.toLowerCase()).includes(option.toLowerCase()) &&
-      uniqueOutdoorIndoor.includes(option.toLowerCase())
+  
+  const filteredOutdoorIndoorOptions = outdoorIndoorInputOptions.filter(
+    (option) => !outIndoorArrList.map((item) => item.toLowerCase()).includes(option.toLowerCase())
   );
+  
 
+   const ver =()=>{
+    console.log("outputArrList: "+ outputArrList);
+   }
 
   return (
     <>
+    <button onClick={()=>ver()}>VER</button>
 
       <div>
         <div className="">
@@ -362,14 +366,14 @@ const Form = () => {
               label="Use Case"
             />
 
-            <SelectComponent
-              id="selected-outdoorindoor"
-              value={lastItemOutdoorIndoor ? lastItemOutdoorIndoor : ""}
-              options={filteredOutdoorIndoor}              
-              handleChange={handleChangeOutdoorIndoor}
-              defaultText={"Select Outdoor / Indoor..."}
-              label="Outdoor/Indoor"
-            />
+<SelectComponent
+  id="selected-outdoorindoor"
+  value={lastItemOutdoorIndoor ? lastItemOutdoorIndoor : ""}
+  options={filteredOutdoorIndoorOptions}
+  handleChange={handleChangeOutdoorIndoor}
+  defaultText={"Select Outdoor / Indoor..."}
+  label="Outdoor/Indoor"
+/>
 
             <SelectComponent
               id="selected-power-supply"
