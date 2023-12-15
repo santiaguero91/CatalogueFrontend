@@ -267,14 +267,9 @@ const Form = () => {
   );
   
 
-   const ver =()=>{
-    console.log("outputArrList: "+ outputArrList);
-   }
 
   return (
     <>
-    <button onClick={()=>ver()}>VER</button>
-
       <div>
         <div className="">
           <input
