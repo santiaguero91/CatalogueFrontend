@@ -264,7 +264,6 @@ const reducer = (state = initialState, action) => {
       let MinMeasureTempInput = action.payload.property.minMeasureTempInput;
       let MaxTempAccuracyInput = action.payload.property.MaxTempAccuracyInput;
       let Measures = action.payload.property.Measures;
-      let Measure = action.payload.property.Measure;
       let Clasification = action.payload.property.clasification;
       let seePricesChecked = action.payload.property.seePricesChecked;
       let searchedWords = Search?.toLowerCase().trim();

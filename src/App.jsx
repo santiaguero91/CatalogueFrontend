@@ -23,15 +23,8 @@ function App() {
     });
   }, [dispatch]);
 
-  const ver = () => {
-    console.log("filteredSensors: "+  sensorData.length);
-    console.log("searchedSensors: "+ searchedData.length);
-  };
-
   return (
-    <div className="mainContainer">
-      <button onClick={() => ver()}>VER</button>
-      
+    <div className="mainContainer">      
       <Routes>
         <Route
           path="/"

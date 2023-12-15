@@ -6,7 +6,7 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
   const dispatch = useDispatch();
   const cart = useSelector((s) => s.cart);
 
-  //storing properties into variables
+  //**storing properties into variables**
   const { id, brand, sku } = item;
   const description = item?.description;
   const product = item?.productName;
@@ -21,7 +21,6 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
   const quantity = item?.quantity;
 
   //** truncate with .. */
-
   const [truncate, setTruncate] = useState(true);
   const changeTruncate = () => {
     setTruncate(!truncate);
@@ -69,15 +68,24 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
 
 
   /* calculateTotal */
-
   const [finalItemsPrice, setFinalItemsPrice] = useState(null);
 
   const calculateTotal = () => {
     switch (activeCheckbox) {
       case "costUSDMiami":
         return inputQuantity * costUSDMiami;
-      case "fiveToTenPrice":
-        return fiveToTenPrice;
+      case "pricePartner":
+        if (inputQuantity < 5) {
+          return inputQuantity * costUSDMiami;
+        } else if (inputQuantity >= 5 && inputQuantity <= 10) {
+          return inputQuantity * fiveToTenPrice;
+        } else if (inputQuantity >= 11 && inputQuantity <= 25) {
+          return inputQuantity * elevenToTwentyFivePrice;
+        } else if (inputQuantity >= 26 && inputQuantity <= 50) {
+          return inputQuantity * twentySixToFiftyPrice;
+        } else {
+          return 0;
+        }
       case "priceWesco":
       default:
         return inputQuantity * priceWesco;
@@ -96,6 +104,12 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
     dispatch(modifieItemInCart({ ...item, totalPrice: finalItemsPrice }));
   }, [finalItemsPrice]);
 
+   const ver =()=>{
+    console.log("");
+    <button onClick={()=>ver()}>VER</button>
+   }
+
+
   return (
     <>
       <tr key={id}>
@@ -108,7 +122,8 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
         <td className="col-description cursor-pointer">
           {truncateDescription}
         </td>
-
+        <td className="col-model cursor-pointer">{truncatedProduct}</td>
+        <td className="col-model cursor-pointer">{truncateSku}</td>
         {/* quantity */}
         <td className="col-model cursor-pointer">
           <input
@@ -117,12 +132,11 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
             max="500"
             value={inputQuantity}
             onChange={handleQuantityChange}
-            className="custom-number-input"
-          />
+            className="custom-number-input border border-black p-1 rounded-md"
+            />
         </td>
 
-        <td className="col-model cursor-pointer">{truncatedProduct}</td>
-        <td className="col-model cursor-pointer">{truncateSku}</td>
+
         <td>{costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}</td>
         <td>
           {fiveToTenPrice !== null ? `$${fiveToTenPrice.toFixed(2)}` : ""}

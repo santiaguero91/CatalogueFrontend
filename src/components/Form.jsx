@@ -10,9 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const dispatch = useDispatch();
-
   const [measuresChecked, setMeasuresChecked] = useState([]);
-
   const [search, setSearch] = useState("");
 
   //********show/hide segments********************* */
