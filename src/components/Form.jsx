@@ -256,13 +256,9 @@ const Form = () => {
       uniquePowerSupplies.includes(option)
   );
 
-  const ver = () => {
-    console.log(sensorsData);
-  };
 
   return (
     <>
-      <button onClick={() => ver()}>VER</button>
 
       <div>
         <div className="">
