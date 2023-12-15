@@ -247,6 +247,8 @@ const Form = () => {
     }
   };
   //** filter away select options */
+
+  
   const uniquePowerSupplies = [
     ...new Set(sensorsData.map((sensor) => sensor.powerSupply)),
   ];
@@ -255,6 +257,16 @@ const Form = () => {
       !powerSupplyArrList.includes(option) &&
       uniquePowerSupplies.includes(option)
   );
+
+  const uniqueOutdoorIndoor = [
+    ...new Set(sensorsData.map((sensor) => sensor.outdoorIndoor?.toLowerCase()))
+  ];
+  const filteredOutdoorIndoor = outdoorIndoorInputOptions.filter(
+    (option) =>
+      !outputArrList.map((item) => item.toLowerCase()).includes(option.toLowerCase()) &&
+      uniqueOutdoorIndoor.includes(option.toLowerCase())
+  );
+
 
   return (
     <>
@@ -353,12 +365,7 @@ const Form = () => {
             <SelectComponent
               id="selected-outdoorindoor"
               value={lastItemOutdoorIndoor ? lastItemOutdoorIndoor : ""}
-              options={
-                outdoorIndoorInputOptions &&
-                outdoorIndoorInputOptions.filter(
-                  (option) => !outIndoorArrList.includes(option)
-                )
-              }
+              options={filteredOutdoorIndoor}              
               handleChange={handleChangeOutdoorIndoor}
               defaultText={"Select Outdoor / Indoor..."}
               label="Outdoor/Indoor"
