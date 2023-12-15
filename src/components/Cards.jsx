@@ -46,8 +46,6 @@ const Cards = ({ sensorData, isLoaded }) => {
                 <th>Power Supply</th>
                 <th>Operating Temperature</th>
                 <th>Operating Humidity</th>
-
-
                 {seePrices && (
                   <>
                     <th

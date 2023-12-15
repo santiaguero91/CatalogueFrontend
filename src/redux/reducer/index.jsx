@@ -2,6 +2,7 @@ const initialState = {
   initialSensors: [],
   filteredSensors: [],
   searchedSensors: [],
+
   sortedby: "ListPriceUSDExWorkMiami",
   searchBy: null,
   searchBymeasure: null,
@@ -44,6 +45,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         initialSensors: action.payload,
         filteredSensors: action.payload,
+        searchedSensors: action.payload,
       };
     case "FILL_ARRAYS":
       break;
@@ -136,6 +138,7 @@ const reducer = (state = initialState, action) => {
       const currentAvailableOperatingHumidity = [];
       const currentAvailableOutIndoor = [];
       const currentAvailableClasification = [];
+      
       state.initialSensors.map((el) => {
         if (el["brand"]) {
           currentAvailableBrands.push(el["brand"]);
@@ -191,21 +194,23 @@ const reducer = (state = initialState, action) => {
       );
       const uniqueCurrentAvailableOutput = new Set(currentAvailableOutput);
 
-      const uniqueCurrentAvailableuseCase = new Set(currentAvailableUseCase);
-
-      let uniqueCurrentAvailableUseCase = state.useCaseFilter;
+      /* UseCase */
+      const uniqueCurrentAvailableUseCase = new Set(currentAvailableUseCase);
+     /*  let uniqueCurrentAvailableUseCase = state.useCaseFilter;
       if (state.useCaseFilter.length === 0) {
         uniqueCurrentAvailableUseCase = Array.from(
           new Set(currentAvailableUseCase)
         );
-      }
+      } */
 
-      let uniqueCurrentAvailableClasification = state.clasficationFilter;
+      /* Clasification */
+      const uniqueCurrentAvailableClasification = new Set(currentAvailableClasification);
+/*       let uniqueCurrentAvailableClasification = state.clasficationFilter;
       if (state.clasficationFilter.length === 0) {
         uniqueCurrentAvailableClasification = Array.from(
           new Set(currentAvailableClasification)
         );
-      }
+      } */
 
       const uniqueCurrentAvailableSupply = new Set(currentAvailableSupply);
       const uniqueCurrentAvailableOperatingTemp = new Set(
@@ -258,14 +263,10 @@ const reducer = (state = initialState, action) => {
       let MaxMeasureTempInput = action.payload.property.maxMeasureTempInput;
       let MinMeasureTempInput = action.payload.property.minMeasureTempInput;
       let MaxTempAccuracyInput = action.payload.property.MaxTempAccuracyInput;
-
       let Measures = action.payload.property.Measures;
       let Measure = action.payload.property.Measure;
-
       let Clasification = action.payload.property.clasification;
-
       let seePricesChecked = action.payload.property.seePricesChecked;
-
       let searchedWords = Search?.toLowerCase().trim();
       let splitWords = (searchedWords || "").split(" ");
 
@@ -422,8 +423,9 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
-        filteredSensors: filteredData,
-        seePricesChecked: seePricesChecked,
+      filteredSensors: filteredData,
+      searchedSensors: filteredData,
+      seePricesChecked: seePricesChecked,
       };
 
     default:

@@ -5,7 +5,8 @@ export const fetchData = () => async (dispatch) => {
     const response = await axios.get("/sensors/all");
     const dataWithQuantity = response.data.map((item) => ({
       ...item,
-      quantity: 1, 
+      quantity: 1,
+      totalPrice: 0
     }));
 
     return dispatch({ type: "FETCH_DATA", payload: dataWithQuantity });

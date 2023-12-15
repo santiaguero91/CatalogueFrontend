@@ -14,6 +14,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const sensorData = useSelector((s) => s.filteredSensors);
+  const searchedData = useSelector((s) => s.searchedSensors);
   const cart = useSelector((s) => s.cart);
 
   useEffect(() => {
@@ -23,7 +24,8 @@ function App() {
   }, [dispatch]);
 
   const ver = () => {
-    console.log("cart: " + cart[0].quantity);
+    console.log("filteredSensors: "+  sensorData.length);
+    console.log("searchedSensors: "+ searchedData.length);
   };
 
   return (

@@ -92,7 +92,6 @@ const Form = () => {
         maxMeasureTempInput: maxMeasureTempInput,
         minMeasureTempInput: minMeasureTempInput,
         seePricesChecked: seePricesChecked,
-        //accuracy inputs
         MaxTempAccuracyInput: MaxTempAccuracyInput,
       })
     );
@@ -100,12 +99,6 @@ const Form = () => {
   };
 
   //handle Measure
-  const handleFilterMeasures = (searchBy) => {
-    setMeasuresChecked((prevMeasuresChecked) => [
-      ...prevMeasuresChecked,
-      searchBy,
-    ]);
-  };
 
   const handleDeleteMeasure = (arr, setArr, item) => {
     const filteredArr = arr.filter((itemArr) => item !== itemArr);
@@ -210,7 +203,6 @@ const Form = () => {
   const lastItemPowerSupply =
     powerSupplyArrList?.[powerSupplyArrList.length - 1];
   const lastItemOutdoorIndoor = outIndoorArrList?.[outIndoorArrList.length - 1];
-  const lastItemMeasures = measuresArrList?.[measuresArrList.length - 1];
 
   // New state for the number input
 

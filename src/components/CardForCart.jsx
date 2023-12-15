@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../redux/actions/addCart";
 import { modifieItemInCart } from "../redux/actions/modifyItem";
 
-const CardForCart = ({ item, index }) => {
+const CardForCart = ({ item, index, activeCheckbox }) => {
   const dispatch = useDispatch();
   const cart = useSelector((s) => s.cart);
 
@@ -65,22 +64,41 @@ const CardForCart = ({ item, index }) => {
     setInputQuantity(value);
   };
   const toggleSelected = () => {
-    dispatch(modifieItemInCart({ ...item, quantity: inputQuantity }));
+    dispatch(modifieItemInCart({ ...item, totalPrice: finalItemsPrice }));
   };
 
-  const Toogle = () => {
-    toggleSelected();
+
+  /* calculateTotal */
+
+  const [finalItemsPrice, setFinalItemsPrice] = useState(null);
+
+  const calculateTotal = () => {
+    switch (activeCheckbox) {
+      case "costUSDMiami":
+        return inputQuantity * costUSDMiami;
+      case "fiveToTenPrice":
+        return fiveToTenPrice;
+      case "priceWesco":
+      default:
+        return inputQuantity * priceWesco;
+    }
   };
 
-  const ver = () => {
-    console.log(item);
-  };
+  useEffect(() => {
+    if (inputQuantity !== null && calculateTotal() !== null) {
+      setFinalItemsPrice(calculateTotal());
+    } else {
+      setFinalItemsPrice(null);
+    }
+  }, [inputQuantity, calculateTotal]);
+
+  useEffect(() => {
+    dispatch(modifieItemInCart({ ...item, totalPrice: finalItemsPrice }));
+  }, [finalItemsPrice]);
 
   return (
     <>
-      <button onClick={() => ver()}>VER</button>
-      <button onClick={() => Toogle()}>Toogle</button>
-      <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
+      <tr key={id}>
         <td>
           {" "}
           <button onClick={toggleSelected}>{index + 1} </button>
@@ -120,6 +138,10 @@ const CardForCart = ({ item, index }) => {
             : ""}
         </td>
         <td>{priceWesco !== null ? `$${priceWesco.toFixed(2)}` : ""}</td>
+        <td>
+        {finalItemsPrice !== null ? `$${finalItemsPrice.toFixed(2)}` : ""}
+      </td>      
+      
       </tr>
     </>
   );
