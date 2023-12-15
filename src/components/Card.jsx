@@ -27,13 +27,10 @@ const Card = ({ item, index }) => {
 
   const accuracy = item?.accuracy;
   const resolution = item?.resolution;
-  const output = item?.["Output"];
   const powerSupply = item?.powerSupply;
   const operatingTemperature = item?.operatingTemperature;
   const operatingHumidity = item?.operatingHumidity;
 
-  //**selected**
-  const selected = item?.selected;
   //** truncate with .. */
 
   const [truncate, setTruncate] = useState(true);
@@ -138,15 +135,6 @@ const Card = ({ item, index }) => {
       powerSupply
     );
 
-  const truncateOutput =
-    output && output.length > 20 && truncate ? (
-      <div onClick={changeTruncate}>
-        {output.slice(0, 20)}
-        <span>...</span>
-      </div>
-    ) : (
-      output
-    );
 
   const toggleSelected = () => {
     dispatch(addItemToCart({ item }));
@@ -154,8 +142,12 @@ const Card = ({ item, index }) => {
 
   const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
 
+   const ver =()=>{
+    console.log(item);
+   }
   return (
     <>
+        <button onClick={()=>ver()}>VER</button>
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
       <td>
         <img

@@ -7,12 +7,16 @@ import SelectComponent from "./SelectComponent";
 import handleChange from "./handleFunctions";
 import FiltersValues from "./FiltersValues";
 import { useNavigate } from "react-router-dom";
+import MeasuresFilter from "./MeasuresFilter";
 
 const Form = () => {
   const dispatch = useDispatch();
   const [measuresChecked, setMeasuresChecked] = useState([]);
   const [search, setSearch] = useState("");
-
+  const navigate = useNavigate();
+  const navigateToCart = () => {
+    navigate("/cart");
+  };
   //********show/hide segments********************* */
   const [showOperatingRanges, setShowOperatingRanges] = useState(false);
   const [showMeasuringRanges, setShowMeasuringRanges] = useState(false);
@@ -25,6 +29,8 @@ const Form = () => {
   const [maxMeasureTempInput, setMaxMeasureTempInput] = useState(0);
   const [minMeasureTempInput, setMinMeasureTempInput] = useState(0);
   const [MaxTempAccuracyInput, setMaxTempAccuracyInput] = useState(0);
+  const [maxMeasureHumidityInput, setMaxMeasureHumidityInput] = useState(0);
+  const [MaxHumidityAccuracyInput, setMaxHumidityAccuracyInput] = useState(0);
 
   //********power Supply input********************* */
   const [powerSupplyInputOptions, setPowerSupplyInputOptions] = useState([
@@ -91,6 +97,8 @@ const Form = () => {
         minMeasureTempInput: minMeasureTempInput,
         seePricesChecked: seePricesChecked,
         MaxTempAccuracyInput: MaxTempAccuracyInput,
+        MaxHumidityAccuracyInput: MaxHumidityAccuracyInput,
+        MaxMeasureHumidityInput: maxMeasureHumidityInput,
       })
     );
     dispatch(fillDropdowns());
@@ -121,7 +129,7 @@ const Form = () => {
     setOperatingTempArrList([]);
     setOperatingHumidityArrList([]);
     setOutIndoorArrList([]);
-    setMeasuresChecked([]); //
+    setMeasuresChecked([]);
     dispatch(resetData());
     dispatch(fillDropdowns());
     setMaxTempInput(0);
@@ -129,6 +137,8 @@ const Form = () => {
     setMinMeasureTempInput(0);
     setMaxMeasureTempInput(0);
     setMaxTempAccuracyInput(0);
+    setMaxHumidityAccuracyInput(0);
+    setMaxMeasureHumidityInput(0);
     setClasificationArrList([]);
   };
 
@@ -137,6 +147,7 @@ const Form = () => {
   const brandsOptions = useSelector((s) => s.dropdownData.brands);
   const useCaseOptions = useSelector((s) => s.useCaseFilter);
   const clasificationOptions = useSelector((s) => s.clasficationFilter);
+  const sensorsData = useSelector((s) => s.filteredSensors);
 
   //***********EFFECT TO UPDATE THE FILTERS IN  *************/
   useEffect(() => {
@@ -161,6 +172,8 @@ const Form = () => {
     seePricesChecked,
     MaxTempAccuracyInput,
     clasificationArrList,
+    maxMeasureHumidityInput,
+    MaxHumidityAccuracyInput,
   ]);
 
   //***************************** */
@@ -181,13 +194,6 @@ const Form = () => {
   const handleChangeClasfication = (e) =>
     handleChange(e, clasificationArrList, setClasificationArrList);
 
-  const handleChangeSelectBrandCB = (e, item) => {
-    if (e.target.value) {
-      const setValues = new Set([...brandsArrList, item]);
-      setBrandsArrList(Array.from(setValues));
-    }
-  };
-
   const handleDeleteItem = (arr, setArr, item) => {
     const filteredArr = arr.filter((itemArr) => item !== itemArr);
     setArr(filteredArr);
@@ -201,7 +207,6 @@ const Form = () => {
   const lastItemOutdoorIndoor = outIndoorArrList?.[outIndoorArrList.length - 1];
 
   // New state for the number input
-
   const handleMaxTemp = (event) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value) && value >= -100 && value <= 201) setMaxTempInput(value);
@@ -210,11 +215,6 @@ const Form = () => {
   const handleMinTemp = (event) => {
     const value = parseInt(event.target.value);
     if (!isNaN(value) && value >= -100 && value <= 201) setMinTempInput(value);
-  };
-
-  const handleMaxHumidity = (event) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value) && value >= 0 && value <= 100) setMaxHumidity(value);
   };
 
   const handleMinMeasureTemp = (event) => {
@@ -235,12 +235,35 @@ const Form = () => {
       setMaxTempAccuracyInput(value);
     }
   };
-  const navigate = useNavigate();
-  const navigateToCart = () => {
-    navigate("/cart");
+  const handleMaxHumidity = (event) => {
+    const value = parseInt(event.target.value);
+    if (!isNaN(value) && value >= 0 && value <= 100)
+      setMaxMeasureHumidityInput(value);
   };
+  const handleHumidityAccuracyInput = (event) => {
+    const value = parseFloat(event.target.value);
+    if (!isNaN(value) && value >= 0 && value <= 100) {
+      setMaxHumidityAccuracyInput(value);
+    }
+  };
+  //** filter away select options */
+  const uniquePowerSupplies = [
+    ...new Set(sensorsData.map((sensor) => sensor.powerSupply)),
+  ];
+  const filteredPowerSupplyOptions = powerSupplyInputOptions.filter(
+    (option) =>
+      !powerSupplyArrList.includes(option) &&
+      uniquePowerSupplies.includes(option)
+  );
+
+  const ver = () => {
+    console.log(sensorsData);
+  };
+
   return (
     <>
+      <button onClick={() => ver()}>VER</button>
+
       <div>
         <div className="">
           <input
@@ -259,15 +282,14 @@ const Form = () => {
             Search
           </button>
           <button
-        className="ml-2 p-2 px-4 rounded-md bg-[#073763] shadow-slate-600 text-slate-100 font-inter shadow-2xl box-border cursor-pointer"
-        onClick={navigateToCart}
-      >
-        Go to Cart
-      </button>
+            className="ml-2 p-2 px-4 rounded-md bg-[#073763] shadow-slate-600 text-slate-100 font-inter shadow-2xl box-border cursor-pointer"
+            onClick={navigateToCart}
+          >
+            Go to Cart
+          </button>
         </div>
 
         <div className="w-full flex flex-col flex-wrap md:flex-nowrap gap-2">
-
           <div className="flex flex-wrap gap-2 py-2 pb-4">
             <FiltersValues
               list={measuresChecked}
@@ -350,68 +372,33 @@ const Form = () => {
             <SelectComponent
               id="selected-power-supply"
               value={lastItemPowerSupply ? lastItemPowerSupply : ""}
-              options={
-                powerSupplyInputOptions &&
-                powerSupplyInputOptions.filter(
-                  (option) => !powerSupplyArrList.includes(option)
-                )
-              }
+              options={filteredPowerSupplyOptions}
               handleChange={handleChangePowerSupply}
               defaultText={"Select a Supply..."}
               label="Power Supply"
             />
           </div>
         </div>
-        {/* Measures filters */}
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowMeasuringRanges(!showMeasuringRanges)}
-            className="p-2 px-4 rounded-md bg-[#yourColor] text-slate-100 font-inter shadow-2xl box-border"
-          >
-            <h5 className="text-md text-gray-400 font-bold cursor-pointer flex items-center">
-              Measures Filter
-              <img
-                src="https://www.svgrepo.com/show/509905/dropdown-arrow.svg"
-                alt="Dropdown Arrow"
-                className="ml-2 w-6"
-              />
-            </h5>
-          </button>
 
-          {showMeasuringRanges && (
-            <div>
-              <label>Min temp:</label>
-              <input
-                type="number"
-                onChange={handleMinMeasureTemp}
-                value={minMeasureTempInput}
-                min="-100"
-                max="200"
-                className="border border-black mb-4 pl-2"
-              />
-              <label>Max temp:</label>
-              <input
-                type="number"
-                onChange={handleMaxMeasureTemp}
-                value={maxMeasureTempInput}
-                min="-100"
-                max="200"
-                className="border border-black mb-4 pl-2"
-              />
-              <label>Max temp accuracy:</label>
-              <input
-                type="number"
-                onChange={handleMaxTempAccuracyInput}
-                value={MaxTempAccuracyInput}
-                min="0"
-                max="1"
-                step="0.01"
-                className="border border-black mb-4 pl-2"
-              />
-            </div>
-          )}
-        </div>
+        {measureArrList.length !== 0 && (
+          <MeasuresFilter
+            measureArrList={measureArrList}
+            showMeasuringRanges={showMeasuringRanges}
+            handleShowMeasuringRanges={() =>
+              setShowMeasuringRanges(!showMeasuringRanges)
+            }
+            handleMinMeasureTemp={handleMinMeasureTemp}
+            handleMaxMeasureTemp={handleMaxMeasureTemp}
+            handleMaxTempAccuracyInput={handleMaxTempAccuracyInput}
+            minMeasureTempInput={minMeasureTempInput}
+            maxMeasureTempInput={maxMeasureTempInput}
+            MaxTempAccuracyInput={MaxTempAccuracyInput}
+            handleMaxHumidity={handleMaxHumidity}
+            handleHumidityAccuracyInput={handleHumidityAccuracyInput}
+            maxMeasureHumidityInput={maxMeasureHumidityInput}
+            maxHumidityAccuracyInput={MaxHumidityAccuracyInput}
+          />
+        )}
         {/* Opertaing temp and humidity filters */}
         <div>
           <button
@@ -537,7 +524,6 @@ const Form = () => {
             handleDeleteItem={handleDeleteItem}
             setArrList={setPowerSupplyArrList}
           />
-
         </div>
       </div>
     </>

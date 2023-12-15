@@ -2,7 +2,6 @@ const initialState = {
   initialSensors: [],
   filteredSensors: [],
   searchedSensors: [],
-
   sortedby: "ListPriceUSDExWorkMiami",
   searchBy: null,
   searchBymeasure: null,
@@ -263,6 +262,9 @@ const reducer = (state = initialState, action) => {
       let MaxMeasureTempInput = action.payload.property.maxMeasureTempInput;
       let MinMeasureTempInput = action.payload.property.minMeasureTempInput;
       let MaxTempAccuracyInput = action.payload.property.MaxTempAccuracyInput;
+      let MaxMeasureHumidityInput = action.payload.property.MaxMeasureHumidityInput;
+      let MaxHumidityAccuracyInput = action.payload.property.MaxHumidityAccuracyInput;
+
       let Measures = action.payload.property.Measures;
       let Clasification = action.payload.property.clasification;
       let seePricesChecked = action.payload.property.seePricesChecked;
@@ -397,6 +399,17 @@ const reducer = (state = initialState, action) => {
               item["tempAccuracy"] >= parseFloat(MaxTempAccuracyInput)
             : true;
 
+        const includesMaxHumidityAccuracyInput =
+        MaxHumidityAccuracyInput !== 0
+            ? item["humidityAccuracy"] !== null &&
+              item["humidityAccuracy"] >= parseFloat(MaxHumidityAccuracyInput)
+            : true; 
+        const includesMaxMeasureHumidityInput =
+        MaxMeasureHumidityInput !== 0
+            ? item["maxMeasurehumidity"] !== null &&
+              item["maxMeasurehumidity"] >= parseFloat(MaxMeasureHumidityInput)
+            : true; 
+            
         if (
           includesBrand &&
           includesMeasuring &&
@@ -414,8 +427,10 @@ const reducer = (state = initialState, action) => {
           includesMinMeasureTempInput &&
           includesMaxMeasureTempInput &&
           includesMaxTempAccuracyInput &&
-          includesClasification
-        ) {
+          includesClasification &&
+          includesMaxHumidityAccuracyInput && 
+          includesMaxMeasureHumidityInput
+                   ) {
           return item;
         }
       });
