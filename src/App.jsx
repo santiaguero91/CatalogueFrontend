@@ -23,7 +23,7 @@ function App() {
   }, [dispatch]);
 
   const ver = () => {
-    console.log("cart: " + cart);
+    console.log("cart: " + cart[0].quantity);
   };
 
   return (

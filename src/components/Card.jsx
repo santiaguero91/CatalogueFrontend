@@ -5,7 +5,7 @@ import { addItemToCart } from "../redux/actions/addCart";
 const Card = ({ item, index }) => {
   const dispatch = useDispatch();
   const seePrices = useSelector((s) => s.seePricesChecked);
-  const cart = useSelector(s=>s.cart)
+  const cart = useSelector((s) => s.cart);
 
   //storing properties into variables
   const { id, brand, sku } = item;
@@ -154,12 +154,12 @@ const Card = ({ item, index }) => {
     dispatch(addItemToCart({ item }));
   };
 
-  const isItemInCart = cart.some(cartItem => cartItem.id === item.id);
+  const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
 
   return (
     <>
       <button onClick={() => ver()}>VER</button>
-      <tr key={id} className={isItemInCart ? 'bg-yellow-100' : ''}>
+      <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
         {/* cart-add */}
         <td>
           {" "}
@@ -185,11 +185,23 @@ const Card = ({ item, index }) => {
 
         {seePrices && (
           <>
-            <td>{costUSDMiami && "$" + costUSDMiami}</td>
-            <td>{fiveToTenPrice && "$" + fiveToTenPrice}</td>
-            <td>{elevenToTwentyFivePrice && "$" + elevenToTwentyFivePrice}</td>
-            <td>{twentySixToFiftyPrice && "$" + twentySixToFiftyPrice}</td>
-            <td>{priceWesco && "$" + priceWesco}</td>
+            <td>
+              {costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}
+            </td>
+            <td>
+              {fiveToTenPrice !== null ? `$${fiveToTenPrice.toFixed(2)}` : ""}
+            </td>
+            <td>
+              {elevenToTwentyFivePrice !== null
+                ? `$${elevenToTwentyFivePrice.toFixed(2)}`
+                : ""}
+            </td>
+            <td>
+              {twentySixToFiftyPrice !== null
+                ? `$${twentySixToFiftyPrice.toFixed(2)}`
+                : ""}
+            </td>
+            <td>{priceWesco !== null ? `$${priceWesco.toFixed(2)}` : ""}</td>
           </>
         )}
       </tr>

@@ -58,7 +58,6 @@ const CardForCart = ({ item, index }) => {
       sku
     );
 
-
   const [inputQuantity, setInputQuantity] = useState(quantity);
   const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
   const handleQuantityChange = (event) => {
@@ -69,22 +68,23 @@ const CardForCart = ({ item, index }) => {
     dispatch(modifieItemInCart({ ...item, quantity: inputQuantity }));
   };
 
-
-
-  const ver = () => {
-   toggleSelected()
+  const Toogle = () => {
+    toggleSelected();
   };
 
+  const ver = () => {
+    console.log(item);
+  };
 
   return (
     <>
       <button onClick={() => ver()}>VER</button>
+      <button onClick={() => Toogle()}>Toogle</button>
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
         <td>
           {" "}
           <button onClick={toggleSelected}>{index + 1} </button>
         </td>
-
         <td>{brand}</td>
         <td className="col-description cursor-pointer">{Clasification}</td>
         <td className="col-description cursor-pointer">
@@ -105,11 +105,21 @@ const CardForCart = ({ item, index }) => {
 
         <td className="col-model cursor-pointer">{truncatedProduct}</td>
         <td className="col-model cursor-pointer">{truncateSku}</td>
-        <td>{costUSDMiami && "$" + costUSDMiami}</td>
-        <td>{fiveToTenPrice && "$" + fiveToTenPrice}</td>
-        <td>{elevenToTwentyFivePrice && "$" + elevenToTwentyFivePrice}</td>
-        <td>{twentySixToFiftyPrice && "$" + twentySixToFiftyPrice}</td>
-        <td>{priceWesco && "$" + priceWesco}</td>
+        <td>{costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}</td>
+        <td>
+          {fiveToTenPrice !== null ? `$${fiveToTenPrice.toFixed(2)}` : ""}
+        </td>
+        <td>
+          {elevenToTwentyFivePrice !== null
+            ? `$${elevenToTwentyFivePrice.toFixed(2)}`
+            : ""}
+        </td>
+        <td>
+          {twentySixToFiftyPrice !== null
+            ? `$${twentySixToFiftyPrice.toFixed(2)}`
+            : ""}
+        </td>
+        <td>{priceWesco !== null ? `$${priceWesco.toFixed(2)}` : ""}</td>
       </tr>
     </>
   );
