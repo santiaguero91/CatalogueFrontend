@@ -256,7 +256,6 @@ const Form = () => {
       uniquePowerSupplies.includes(option)
   );
 
-
   return (
     <>
 

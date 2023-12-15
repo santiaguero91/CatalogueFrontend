@@ -142,9 +142,9 @@ const Card = ({ item, index }) => {
 
   const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
 
-
   return (
     <>
+
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
       <td>
         <img
