@@ -355,7 +355,7 @@ const reducer = (state = initialState, action) => {
 
         const includesMeasuring =
           Measuring_range.length > 0
-            ? Measuring_range.some(
+            ? Measuring_range.every(
                 (rangeItem) =>
                   item["measuringRange"]
                     ?.toLowerCase()
