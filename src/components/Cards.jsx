@@ -48,12 +48,12 @@ const Cards = ({ sensorData, isLoaded }) => {
                 <th>Operating Humidity</th>
                 {seePrices && (
                   <>
-                    <th
+                    {/* <th
                       onClick={() => handleSort("costUSDMiami")}
                       className="cursor-pointer"
                     >
                       Cost USD Miami
-                    </th>
+                    </th> 
                     <th
                       onClick={() => handleSort("price5to10")}
                       className="cursor-pointer"
@@ -71,7 +71,7 @@ const Cards = ({ sensorData, isLoaded }) => {
                       className="cursor-pointer"
                     >
                       Price Partner 26 - 50 sensors
-                    </th>
+                    </th> */}
                     <th
                       onClick={() => handleSort("priceWesco")}
                       className="cursor-pointer"

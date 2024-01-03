@@ -74,7 +74,9 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
         return inputQuantity * costUSDMiami;
       case "pricePartner":
         if (inputQuantity < 5) {
-          return inputQuantity * costUSDMiami;
+          // aca cambiar si se calcula price wesco o price MIAMI
+          return inputQuantity * priceWesco;
+          // return inputQuantity * costUSDMiami;
         } else if (inputQuantity >= 5 && inputQuantity <= 10) {
           return inputQuantity * fiveToTenPrice;
         } else if (inputQuantity >= 11 && inputQuantity <= 25) {
@@ -143,7 +145,7 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
         </td>
 
 
-        <td>{costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}</td>
+        {/* <td>{costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}</td> 
         <td>
           {fiveToTenPrice !== null ? `$${fiveToTenPrice.toFixed(2)}` : ""}
         </td>
@@ -156,7 +158,7 @@ const CardForCart = ({ item, index, activeCheckbox }) => {
           {twentySixToFiftyPrice !== null
             ? `$${twentySixToFiftyPrice.toFixed(2)}`
             : ""}
-        </td>
+        </td> */}
         <td>{priceWesco !== null ? `$${priceWesco.toFixed(2)}` : ""}</td>
         <td>
         {finalItemsPrice !== null ? `$${finalItemsPrice.toFixed(2)}` : ""}

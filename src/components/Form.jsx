@@ -44,16 +44,25 @@ const Form = () => {
     "Indoor",
   ]);
   const [measuresArrList, setMeasuresArrList] = useState([
+    "Environment",
     "Temperature",
     "Humidity",
     "CO2",
     "Light",
     "Pressure",
     "VOC",
-    "motion",
+    "Motion",
     "Sound",
     "Leak",
     "Soil",
+    "Tilt",
+    "Oil",
+    "Distance",
+    "Level",
+    "Current",
+    /* "Vibration", */
+    "Tilt",
+    "PM",
   ]);
   const [clasificationArrList, setClasificationArrList] = useState([]);
   useState(true);
@@ -248,7 +257,6 @@ const Form = () => {
   };
   //** filter away select options */
 
-  
   const uniquePowerSupplies = [
     ...new Set(sensorsData.map((sensor) => sensor.powerSupply)),
   ];
@@ -259,14 +267,17 @@ const Form = () => {
   );
 
   const uniqueOutdoorIndoor = [
-    ...new Set(sensorsData.map((sensor) => sensor.outdoorIndoor?.toLowerCase()))
+    ...new Set(
+      sensorsData.map((sensor) => sensor.outdoorIndoor?.toLowerCase())
+    ),
   ];
-  
-  const filteredOutdoorIndoorOptions = outdoorIndoorInputOptions.filter(
-    (option) => !outIndoorArrList.map((item) => item.toLowerCase()).includes(option.toLowerCase())
-  );
-  
 
+  const filteredOutdoorIndoorOptions = outdoorIndoorInputOptions.filter(
+    (option) =>
+      !outIndoorArrList
+        .map((item) => item.toLowerCase())
+        .includes(option.toLowerCase())
+  );
 
   return (
     <>
@@ -361,14 +372,14 @@ const Form = () => {
               label="Use Case"
             />
 
-<SelectComponent
-  id="selected-outdoorindoor"
-  value={lastItemOutdoorIndoor ? lastItemOutdoorIndoor : ""}
-  options={filteredOutdoorIndoorOptions}
-  handleChange={handleChangeOutdoorIndoor}
-  defaultText={"Select Outdoor / Indoor..."}
-  label="Outdoor/Indoor"
-/>
+            <SelectComponent
+              id="selected-outdoorindoor"
+              value={lastItemOutdoorIndoor ? lastItemOutdoorIndoor : ""}
+              options={filteredOutdoorIndoorOptions}
+              handleChange={handleChangeOutdoorIndoor}
+              defaultText={"Select Outdoor / Indoor..."}
+              label="Outdoor/Indoor"
+            />
 
             <SelectComponent
               id="selected-power-supply"

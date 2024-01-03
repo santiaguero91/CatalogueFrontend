@@ -175,9 +175,9 @@ const Card = ({ item, index }) => {
 
         {seePrices && (
           <>
-            <td>
+            {/* <td>
               {costUSDMiami !== null ? `$${costUSDMiami.toFixed(2)}` : ""}
-            </td>
+            </td> 
             <td>
               {fiveToTenPrice !== null ? `$${fiveToTenPrice.toFixed(2)}` : ""}
             </td>
@@ -190,7 +190,7 @@ const Card = ({ item, index }) => {
               {twentySixToFiftyPrice !== null
                 ? `$${twentySixToFiftyPrice.toFixed(2)}`
                 : ""}
-            </td>
+            </td> */}
             <td>{priceWesco !== null ? `$${priceWesco.toFixed(2)}` : ""}</td>
           </>
         )}

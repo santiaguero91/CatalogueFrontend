@@ -35,7 +35,7 @@ const Cart = () => {
       </button>
 
       <div className="flex space-x-2 my-4">
-        <button
+        {/* <button
           className={`p-2 px-4 rounded-md ${
             activeCheckbox === "costUSDMiami"
               ? "bg-[#073763] text-slate-100"
@@ -44,7 +44,7 @@ const Cart = () => {
           onClick={() => handleCheckboxChange("costUSDMiami")}
         >
           Cost USD Miami
-        </button>
+        </button> */}
         <button
           className={`p-2 px-4 rounded-md ${
             activeCheckbox === "pricePartner"
@@ -81,12 +81,12 @@ const Cart = () => {
             <th>Product</th>
             <th>SKU</th>
             <th>Quantity</th>
-            <th
+            {/* <th
               onClick={() => handleSort("costUSDMiami")}
               className="cursor-pointer"
             >
               Cost USD Miami
-            </th>
+            </th> 
             <th
               onClick={() => handleSort("price5to10")}
               className="cursor-pointer"
@@ -104,7 +104,7 @@ const Cart = () => {
               className="cursor-pointer"
             >
               Price Partner 26 - 50 sensors
-            </th>
+            </th> */}
             <th
               onClick={() => handleSort("priceWesco")}
               className="cursor-pointer"
