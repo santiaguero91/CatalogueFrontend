@@ -48,6 +48,18 @@ const Card = ({ item, index }) => {
       product
     );
 
+    
+
+    const truncateClasification =
+    Clasification && Clasification.length > 20 && truncate ? (
+      <div onClick={changeTruncate}>
+        {Clasification.slice(0, 20)}
+        <span>...</span>
+      </div>
+    ) : (
+      Clasification
+    );
+
   const truncateDescription =
     description && description.length > 20 && truncate ? (
       <div onClick={changeTruncate}>
@@ -161,7 +173,7 @@ const Card = ({ item, index }) => {
         </td>
         {/* cart-add */}
         <td>{brand}</td>
-        <td className="col-model cursor-pointer">{Clasification}</td>
+        <td className="col-model cursor-pointer">{truncateClasification}</td>
 
         {/* <td className="col-description cursor-pointer">
           {Clasification && Clasification.length > 0
