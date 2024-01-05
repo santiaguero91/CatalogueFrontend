@@ -153,14 +153,9 @@ const Card = ({ item, index }) => {
 
   const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
 
-  const ver = () => {
-    console.log(Clasification);
-  };
 
   return (
     <>
-      <button onClick={() => ver()}>VER</button>
-
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
         <td>
           <img
