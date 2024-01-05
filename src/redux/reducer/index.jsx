@@ -164,12 +164,13 @@ const reducer = (state = initialState, action) => {
         if (el["Output"]) {
           currentAvailableOutput.push(el["Output"]);
         }
-
-
-        if (el["clasification"] && Array.isArray(el["clasification"])) {
-          el["clasification"].forEach(classification => {
-            if (!currentAvailableClasification.includes(classification)) {
-              currentAvailableClasification.push(classification);
+        if (el["clasification"]) {
+          let arr = el["clasification"].split(" / ");
+          console.log(arr); // Optional: Print the array to the console
+        
+          arr.forEach(classification => {
+            if (!currentAvailableClasification.includes(classification.trim())) {
+              currentAvailableClasification.push(classification.trim());
             }
           });
         }

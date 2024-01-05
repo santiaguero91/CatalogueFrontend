@@ -161,11 +161,13 @@ const Card = ({ item, index }) => {
         </td>
         {/* cart-add */}
         <td>{brand}</td>
-        <td className="col-description cursor-pointer">
+        <td className="col-model cursor-pointer">{Clasification}</td>
+
+        {/* <td className="col-description cursor-pointer">
           {Clasification && Clasification.length > 0
             ? Clasification.join(" / ")
             : "No Clasification"}
-        </td>{" "}
+        </td>{" "} */}
         <td className="col-description cursor-pointer">
           {truncateDescription}
         </td>
