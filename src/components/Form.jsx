@@ -55,14 +55,14 @@ const Form = () => {
     "Sound",
     "Leak",
     "Soil",
-    "Tilt",
     "Oil",
     "Distance",
     "Level",
     "Current",
-    /* "Vibration", */
     "Tilt",
     "PM",
+    "PH",
+    
   ]);
   const [clasificationArrList, setClasificationArrList] = useState([]);
   useState(true);
@@ -96,7 +96,10 @@ const Form = () => {
         Operating: operatingTempArrList,
         Humidity: operatingHumidityArrList,
         OutdoorIndoor: outIndoorArrList,
+
+
         clasification: clasificationArrList,
+        
         Measures: measuresChecked,
         useCase: useCaseArrList,
         maxTempInput: maxTempInput,

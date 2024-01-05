@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../redux/actions/addCart";
-import shoppingCart from "../../src/shopping-cart-svg.svg"
-import deleteitem from "../../src/cross-svg.svg"
+import shoppingCart from "../../src/shopping-cart-svg.svg";
+import deleteitem from "../../src/cross-svg.svg";
 
 const Card = ({ item, index }) => {
   const dispatch = useDispatch();
@@ -135,30 +135,37 @@ const Card = ({ item, index }) => {
       powerSupply
     );
 
-
   const toggleSelected = () => {
     dispatch(addItemToCart({ item }));
   };
 
   const isItemInCart = cart.some((cartItem) => cartItem.id === item.id);
 
+  const ver = () => {
+    console.log(Clasification);
+  };
+
   return (
     <>
+      <button onClick={() => ver()}>VER</button>
 
       <tr key={id} className={isItemInCart ? "bg-yellow-100" : ""}>
-      <td>
-        <img
-          src={isItemInCart ? deleteitem : shoppingCart}
-          alt="Toggle Selected"
-          onClick={toggleSelected}
-          style={{ cursor: "pointer" }}
-          className={isItemInCart ? "w-3 h-3" : "w-6 h-6"}
-        />
-      </td>
+        <td>
+          <img
+            src={isItemInCart ? deleteitem : shoppingCart}
+            alt="Toggle Selected"
+            onClick={toggleSelected}
+            style={{ cursor: "pointer" }}
+            className={isItemInCart ? "w-3 h-3" : "w-6 h-6"}
+          />
+        </td>
         {/* cart-add */}
-
         <td>{brand}</td>
-        <td className="col-description cursor-pointer">{Clasification}</td>
+        <td className="col-description cursor-pointer">
+          {Clasification && Clasification.length > 0
+            ? Clasification.join(" / ")
+            : "No Clasification"}
+        </td>{" "}
         <td className="col-description cursor-pointer">
           {truncateDescription}
         </td>
@@ -172,7 +179,6 @@ const Card = ({ item, index }) => {
         <td className="col-model cursor-pointer">{truncatePowerSupply}</td>
         <td className="col-model">{operatingTemperature}</td>
         <td className="col-model">{operatingHumidity}</td>
-
         {seePrices && (
           <>
             {/* <td>

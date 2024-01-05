@@ -108,17 +108,17 @@ const reducer = (state = initialState, action) => {
           cart: [...state.cart, action.payload.item],
         };
       }
-      case "MODIFYITEM":
-        const updatedCart = state.cart.map((cartItem) => {
-          if (cartItem.id === action.payload.item.id) {
-            return action.payload.item;
-          }
-          return cartItem;
-        });
-        return {
-          ...state,
-          cart: updatedCart,
-        };
+    case "MODIFYITEM":
+      const updatedCart = state.cart.map((cartItem) => {
+        if (cartItem.id === action.payload.item.id) {
+          return action.payload.item;
+        }
+        return cartItem;
+      });
+      return {
+        ...state,
+        cart: updatedCart,
+      };
     case "RESET_DATA":
       return {
         ...state,
@@ -136,8 +136,9 @@ const reducer = (state = initialState, action) => {
       const currentAvailableOperatingTemp = [];
       const currentAvailableOperatingHumidity = [];
       const currentAvailableOutIndoor = [];
+
       const currentAvailableClasification = [];
-      
+
       state.initialSensors.map((el) => {
         if (el["brand"]) {
           currentAvailableBrands.push(el["brand"]);
@@ -163,9 +164,17 @@ const reducer = (state = initialState, action) => {
         if (el["Output"]) {
           currentAvailableOutput.push(el["Output"]);
         }
-        if (el["clasification"]) {
-          currentAvailableClasification.push(el["clasification"]);
+
+
+        if (el["clasification"] && Array.isArray(el["clasification"])) {
+          el["clasification"].forEach(classification => {
+            if (!currentAvailableClasification.includes(classification)) {
+              currentAvailableClasification.push(classification);
+            }
+          });
         }
+
+
 
         if (el["powerSupply"]) {
           currentAvailableSupply.push(el["powerSupply"]);
@@ -195,7 +204,7 @@ const reducer = (state = initialState, action) => {
 
       /* UseCase */
       const uniqueCurrentAvailableUseCase = new Set(currentAvailableUseCase);
-     /*  let uniqueCurrentAvailableUseCase = state.useCaseFilter;
+      /*  let uniqueCurrentAvailableUseCase = state.useCaseFilter;
       if (state.useCaseFilter.length === 0) {
         uniqueCurrentAvailableUseCase = Array.from(
           new Set(currentAvailableUseCase)
@@ -203,8 +212,10 @@ const reducer = (state = initialState, action) => {
       } */
 
       /* Clasification */
-      const uniqueCurrentAvailableClasification = new Set(currentAvailableClasification);
-/*       let uniqueCurrentAvailableClasification = state.clasficationFilter;
+      const uniqueCurrentAvailableClasification = new Set(
+        currentAvailableClasification
+      );
+      /*       let uniqueCurrentAvailableClasification = state.clasficationFilter;
       if (state.clasficationFilter.length === 0) {
         uniqueCurrentAvailableClasification = Array.from(
           new Set(currentAvailableClasification)
@@ -262,8 +273,10 @@ const reducer = (state = initialState, action) => {
       let MaxMeasureTempInput = action.payload.property.maxMeasureTempInput;
       let MinMeasureTempInput = action.payload.property.minMeasureTempInput;
       let MaxTempAccuracyInput = action.payload.property.MaxTempAccuracyInput;
-      let MaxMeasureHumidityInput = action.payload.property.MaxMeasureHumidityInput;
-      let MaxHumidityAccuracyInput = action.payload.property.MaxHumidityAccuracyInput;
+      let MaxMeasureHumidityInput =
+        action.payload.property.MaxMeasureHumidityInput;
+      let MaxHumidityAccuracyInput =
+        action.payload.property.MaxHumidityAccuracyInput;
 
       let Measures = action.payload.property.Measures;
       let Clasification = action.payload.property.clasification;
@@ -292,6 +305,7 @@ const reducer = (state = initialState, action) => {
               lowerCasedProperty?.includes(word)
             );
           };
+
           const boolBrand = propertyIsIncluded(el.brand, splitWords);
           const boolDescription = propertyIsIncluded(
             el.description,
@@ -362,6 +376,7 @@ const reducer = (state = initialState, action) => {
                     .includes(rangeItem.toLowerCase()) ||
                   item["description"]
                     ?.toLowerCase()
+                    .split(" ")
                     .includes(rangeItem.toLowerCase())
               )
             : true;
@@ -400,16 +415,16 @@ const reducer = (state = initialState, action) => {
             : true;
 
         const includesMaxHumidityAccuracyInput =
-        MaxHumidityAccuracyInput !== 0
+          MaxHumidityAccuracyInput !== 0
             ? item["humidityAccuracy"] !== null &&
               item["humidityAccuracy"] >= parseFloat(MaxHumidityAccuracyInput)
-            : true; 
+            : true;
         const includesMaxMeasureHumidityInput =
-        MaxMeasureHumidityInput !== 0
+          MaxMeasureHumidityInput !== 0
             ? item["maxMeasurehumidity"] !== null &&
               item["maxMeasurehumidity"] >= parseFloat(MaxMeasureHumidityInput)
-            : true; 
-            
+            : true;
+
         if (
           includesBrand &&
           includesMeasuring &&
@@ -428,18 +443,18 @@ const reducer = (state = initialState, action) => {
           includesMaxMeasureTempInput &&
           includesMaxTempAccuracyInput &&
           includesClasification &&
-          includesMaxHumidityAccuracyInput && 
+          includesMaxHumidityAccuracyInput &&
           includesMaxMeasureHumidityInput
-                   ) {
+        ) {
           return item;
         }
       });
 
       return {
         ...state,
-      filteredSensors: filteredData,
-      searchedSensors: filteredData,
-      seePricesChecked: seePricesChecked,
+        filteredSensors: filteredData,
+        searchedSensors: filteredData,
+        seePricesChecked: seePricesChecked,
       };
 
     default:
