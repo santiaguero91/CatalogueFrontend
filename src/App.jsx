@@ -7,8 +7,8 @@ import Cards from "./components/Cards";
 import { Route, Routes } from "react-router-dom";
 import Cart from "./Views/Cart";
 
-axios.defaults.baseURL = "http://localhost:3001";
-// axios.defaults.baseURL = "https://cataloguebackend-jxflcru1n-santiaguero91.vercel.app"
+// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://cataloguebackend-jxflcru1n-santiaguero91.vercel.app"
 
 function App() {
   const dispatch = useDispatch();
